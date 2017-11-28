@@ -5,7 +5,7 @@ import numpy as np
 from sklearn.svm import SVR
 from sklearn.model_selection import cross_val_score
 
-from embedding_evaluation.load_my_embedding import load_embedding_textfile
+from embedding_evaluation.load_embedding import load_embedding_textfile
 
 
 def process_concreteness():

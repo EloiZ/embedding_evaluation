@@ -3,7 +3,7 @@ import numpy as np
 from scipy.stats import spearmanr
 
 from embedding_evaluation.process_benchmarks import process_benchmarks
-from embedding_evaluation.load_my_embedding import load_embedding_textfile
+from embedding_evaluation.load_embedding import load_embedding_textfile
 
 
 def cosine_similarity(x, y):
