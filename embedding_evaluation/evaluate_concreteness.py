@@ -54,11 +54,3 @@ class EvaluationConcreteness:
 
         return results["mean"]
 
-
-if __name__ == "__main__":
-    evaluation = Evaluation_concreteness()
-    my_embedding = load_embedding_textfile(textfile_path="/data/zablocki/data/glove.840B.300d_500000.txt", sep=" ")
-    print("embedding_loaded")
-    results = evaluation.evaluate(my_embedding)
-    print(results)
-
