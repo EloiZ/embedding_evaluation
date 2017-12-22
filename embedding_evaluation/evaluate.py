@@ -9,7 +9,8 @@ class Evaluation:
         self.sim = EvaluationSimilarity(entity_subset=entity_subset)
         self.conc = EvaluationConcreteness(entity_subset=None)
         self.fn = None
-        if vocab_path is not None:
+
+        if (vocab_path is not None) or (vocab is not None):
             self.fn = EvaluationFeatureNorm(entity_subset=entity_subset, vocab_path=vocab_path, vocab=vocab)
 
     def evaluate(self, my_embedding):

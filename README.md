@@ -69,10 +69,9 @@ from embedding_evaluation.load_embedding import load_embedding_textfile
 
 # Load embeddings as a dictionnary {word: embed} where embed is a 1-d numpy array.
 embeddings = load_embedding_textfile(textfile_path="path/to/my/embeddings.csv")
-vocab = list(embeddings.keys())
 
 # Load and process evaluation benchmarks
-evaluation = Evaluation(vocab=vocab) 
+evaluation = Evaluation() 
 
 results = evaluation.evaluate(embeddings)
 ```
