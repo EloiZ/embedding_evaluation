@@ -29,7 +29,7 @@ def evaluate_one_benchmark(my_embedding, benchmark, entity_subset=None, several_
     gold_list_ent_only = []
     target_list_ent_only = []
     for (word1, word2), gold_score in benchmark.items():
-        if word1 not in my_embedding.keys() or word2 not in my_embedding.keys():
+        if word1 not in my_embedding or word2 not in my_embedding:
             continue
 
         if several_embeddings:
