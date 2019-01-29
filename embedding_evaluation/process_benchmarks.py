@@ -93,6 +93,19 @@ def parse_rw(rw_path):
         rw[(word1, word2)] = score
     return rw
 
+def parse_mturk(mturk_path):
+    mturk = {}
+    with open(mturk_path, "r") as f:
+        data = f.read().splitlines()
+    for line in data:
+        s = line.split(",")
+        word1 = s[0].lower()
+        word2 = s[1].lower()
+        score = float(s[2])
+        mturk[(word1, word2)] = score
+    return mturk
+
+
 
 def process_benchmarks():
     data_path = os.environ["EMBEDDING_EVALUATION_DATA_PATH"]
@@ -103,6 +116,7 @@ def process_benchmarks():
     vis_sem_sim_path = os.path.join(data_path, "vis_sem_sim/similarity_judgements.txt")
     verb_path = os.path.join(data_path, "verb-143/en-verb-143.txt")
     rw_path = os.path.join(data_path, "rw/rw.txt")
+    mturk771_path = os.path.join(data_path, "mturk-771/MTURK-771.csv")
 
     usf, simlex = parse_simlex(simlex_path)
     ws353 = parse_wordsim353(wordsim353_path)
@@ -110,6 +124,7 @@ def process_benchmarks():
     vis_sim, sem_sim = parse_vis_sem_sim(vis_sem_sim_path)
     verb = parse_verb(verb_path)
     rw = parse_rw(rw_path)
+    mturk771 = parse_mturk(mturk771_path)
 
     benchmarks = {"usf": usf,
 	            "ws353": ws353,
@@ -118,10 +133,12 @@ def process_benchmarks():
 	            "sem_sim":sem_sim,
 	            "simlex":simlex,
                     "verb_143":verb,
-                    "rw":rw}
+                    "rw":rw,
+                    "mturk_771":mturk771}
 
     return benchmarks
 
 if __name__ == "__main__":
     benchmarks = process_benchmarks()
+    print(benchmarks["mturk_771"])
 
