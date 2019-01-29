@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import os
 
 def parse_vis_sem_sim(path):
@@ -66,6 +67,33 @@ def parse_wordsim353(wordsim353_path):
         ws353[(word1, word2)] = score
     return ws353
 
+def parse_verb(verb_path):
+    verb = {}
+    with open(verb_path, "r") as f:
+        data = f.read().splitlines()
+
+    for line in data:
+        s = line.split(" ")
+        word1 = s[0].lower()
+        word2 = s[1].lower()
+        score = float(s[2])
+        verb[(word1, word2)] = score
+    return verb
+
+
+def parse_rw(rw_path):
+    rw = {}
+    with open(rw_path, "r") as f:
+        data = f.read().splitlines()
+    for line in data:
+        s = line.split("\t")
+        word1 = s[0].lower()
+        word2 = s[1].lower()
+        score = float(s[2])
+        rw[(word1, word2)] = score
+    return rw
+
+
 def process_benchmarks():
     data_path = os.environ["EMBEDDING_EVALUATION_DATA_PATH"]
     simlex_path = os.path.join(data_path, "SimLex-999/SimLex-999.txt")
@@ -73,17 +101,27 @@ def process_benchmarks():
     men_path_lemma = os.path.join(data_path, "men/MEN_dataset_lemma_form_full")
     men_path_natural = os.path.join(data_path, "men/MEN_dataset_natural_form_full")
     vis_sem_sim_path = os.path.join(data_path, "vis_sem_sim/similarity_judgements.txt")
+    verb_path = os.path.join(data_path, "verb-143/en-verb-143.txt")
+    rw_path = os.path.join(data_path, "rw/rw.txt")
 
     usf, simlex = parse_simlex(simlex_path)
     ws353 = parse_wordsim353(wordsim353_path)
     men = parse_men(men_path_natural, lemma=False)
     vis_sim, sem_sim = parse_vis_sem_sim(vis_sem_sim_path)
+    verb = parse_verb(verb_path)
+    rw = parse_rw(rw_path)
+
     benchmarks = {"usf": usf,
 	            "ws353": ws353,
 	            "men":men,
 	            "vis_sim":vis_sim,
 	            "sem_sim":sem_sim,
-	            "simlex":simlex}
+	            "simlex":simlex,
+                    "verb_143":verb,
+                    "rw":rw}
 
     return benchmarks
+
+if __name__ == "__main__":
+    benchmarks = process_benchmarks()
 
