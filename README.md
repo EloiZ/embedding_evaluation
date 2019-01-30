@@ -25,6 +25,7 @@ This repository implements popular methods to evaluate word embeddings. It is me
 * numpy
 * pickle
 * sklearn
+* json
 
 ### Clone and install
 * Clone the repository `git clone https://github.com/EloiZ/embedding_evaluation.git`

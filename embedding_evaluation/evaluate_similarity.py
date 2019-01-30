@@ -28,9 +28,12 @@ def evaluate_one_benchmark(my_embedding, benchmark, entity_subset=None, several_
     target_list = []
     gold_list_ent_only = []
     target_list_ent_only = []
+
+    count_used_pairs = 0
     for (word1, word2), gold_score in benchmark.items():
         if word1 not in my_embedding or word2 not in my_embedding:
             continue
+        count_used_pairs += 1
 
         if several_embeddings:
             sim = average_cosine_similarity(my_embedding[word1], my_embedding[word2])
@@ -44,13 +47,16 @@ def evaluate_one_benchmark(my_embedding, benchmark, entity_subset=None, several_
             if word1 in entity_subset and word2 in entity_subset:
                 gold_list_ent_only.append(gold_score)
                 target_list_ent_only.append(sim)
+    #used_pairs = count_used_pairs / len(benchmark)
 
     sp_all, _ = spearmanr(target_list, gold_list)
-    sp_ent_only = 0
+    result = {"all_entities": sp_all, "used_pairs": count_used_pairs, "total_pairs": len(benchmark)}
+
     if entity_subset is not None:
         sp_ent_only, _ = spearmanr(target_list_ent_only, gold_list_ent_only)
+        result["entity_subset"] = sp_ent_only
 
-    return {"all_entities": sp_all, "entity_subset": sp_ent_only}
+    return result
 
 
 class EvaluationSimilarity:
@@ -61,7 +67,7 @@ class EvaluationSimilarity:
 
     def evaluate(self, my_embedding, several_embeddings=False):
         results = {}
-        for benchmark_string, benchmark in self.all_benchmarks.items():
-            results[benchmark_string] = evaluate_one_benchmark(my_embedding, benchmark, self.entity_subset, several_embeddings=several_embeddings)
+        for benchmark_name, benchmark in self.all_benchmarks.items():
+            results[benchmark_name] = evaluate_one_benchmark(my_embedding, benchmark, self.entity_subset, several_embeddings=several_embeddings)
         return results
 
