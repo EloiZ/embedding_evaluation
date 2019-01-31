@@ -90,7 +90,7 @@ def main():
             if r['total_pairs'] == 0:
                 c.append('--')
                 continue
-            coverage = 100 * r['pairs_with_both_embeddings'] / r['total_pairs']
+            coverage = 100 * r['used_pairs'] / r['total_pairs']
             c.append("{:.2f} : {:.2f}".format(r['all_entities'] * 100, coverage))
         columns.append(c)
     rows = list(map(list, zip(*columns))) # transpose
