@@ -115,7 +115,7 @@ def parse_mturk(mturk_path):
     mturk = {}
     with open(mturk_path, "r") as f:
         data = f.read().splitlines()
-    for line in data:
+    for line in data[1:]:
         s = line.split(",")
         word1 = s[0].lower()
         word2 = s[1].lower()
@@ -154,7 +154,6 @@ def process_benchmarks():
                   "simlex-q2": simconq_q2,
                   "simlex-q3": simconq_q3,
                   "simlex-q4": simconq_q4,
-                  "mturk287": mturk287,
                   "mturk771": mturk771,
                   "rw": rw
     }

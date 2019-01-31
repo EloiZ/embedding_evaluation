@@ -37,7 +37,7 @@ def load_glove_embeddings(emb_path, vocab):
     return embeddings
 
 def main():
-    os.environ["EMBEDDING_EVALUATION_DATA_PATH"] = "/tartalo03/users/muster/embedding_evaluation_paper/src/EloiZ/embedding_evaluation/data"
+    os.environ["EMBEDDING_EVALUATION_DATA_PATH"] = "/tartalo03/users/muster/embedding_evaluation_paper/EloiZ/embedding_evaluation/data"
     parser = argparse.ArgumentParser()
     # Hyper Parameters
     parser = argparse.ArgumentParser()
