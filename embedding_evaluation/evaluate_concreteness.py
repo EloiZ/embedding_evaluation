@@ -36,11 +36,17 @@ class EvaluationConcreteness:
     def __init__(self, entity_subset=None):
         self.concreteness = process_concreteness()
 
+    def words_in_benchmarks(self):
+        vocab = set(self.concreteness.keys())
+        return vocab
+
     def evaluate(self, my_embedding):
         labels = []
         features = []
+        words_with_embedding = 0
         for word, conc in self.concreteness.items():
             if word in my_embedding:
+                words_with_embedding += 1
                 labels.append(conc)
                 features.append(my_embedding[word])
                 #features.append(np.random.randn(300))
@@ -50,7 +56,7 @@ class EvaluationConcreteness:
         scores = evaluate_one_dataset(labels, features)
         mean = np.mean(scores)
         std = np.std(scores)
-        results = {"mean": mean, "std": std}
+        results = {"mean": mean, "std": std, "total_words" : len(self.concreteness), "words_with_embedding" : words_with_embedding}
 
-        return results["mean"]
+        return results
 
