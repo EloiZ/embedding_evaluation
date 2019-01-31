@@ -1,0 +1,48 @@
+Variable,Explanation
+Concept,concept name
+Feature,feature name
+WB_Label,feature type according to the taxonomy of Wu & Barsalou (2003)
+WB_Maj,feature type major classification according to the taxonomy of Wu & Barsalou (2003)
+WB_Min,feature type minor classification according to the taxonomy of Wu & Barsalou (2003)
+BR_Label,"feature type according to Cree & McRae's (2003, JEP:General) ""brain region taxonomy"""
+Prod_Freq,production frequency: the number of subjects out of a possible 30 who listed that feature for that concept in the norms
+Rank_PF,the feature's rank within the concept according to production frequency
+Sum_PF_No_Tax,"sum of the production frequencies for that feature across all concepts in which it occurs, excluding taxonomic features"
+CPF,the number of concepts in which that feature occurs
+Disting,"D=a distinguishing feature, ND=a nondistinguishing feature, where distinguishing is defined as occurring in 1 or 2 concepts in the norms"
+Distinct,"distinctiveness=1/(cpf); i.e., the inverse of the number of concepts in which that feature occurs"
+CV_No_Tax,"cue validity of the feature for that concept, excluding all taxonomic features; CV = (Prod_Freq)/Sum_PF_No_Tax"
+Intercorr_Str_Tax,"intercorrelational strength of feature for that concept, includes taxonomic features"
+Intercorr_Str_No_Tax,"intercorrelational strength of feature for that concept, excludes taxonomic features"
+Feat_Length_Including_Spaces,"number of characters in feature name, including the spaces as characters"
+Phon_1st,initial phoneme of concept name
+KF,Kucera & Francis (1967) frequency of concept name: sum of singular and plural
+ln(KF),natural logarithm of Kucera & Francis (1967) frequency: sum of singular and plural
+BNC,British National Corpus frequency of concept name: sum of singular and plural
+ln(BNC),natural logarithm of: British National Corpus frequency of concept name: sum of singular and plural
+Familiarity,"rated concept familiarity: 1-9 scale, 9= extremely familiar"
+Length_Letters,number of letters in concept name
+Length_Phonemes,number of phonemes in concept name
+Length_Syllables,number of syllables in concept name
+Bigram,"mean position-specific bigram frequency of concept name according to ""neighbourhood watch"" program"
+Trigram,"mean position-specific trigram frequency of concept name according to ""neighbourhood watch"" program"
+ColtheartN,"Coltheart's N of concept name according to ""neighbourhood watch"" program"
+Num_Feats_Tax,"number of features in concept, including taxonomic features"
+Num_Feats_No_Tax,"number of features in concept, excluding taxonomic features"
+Num_Disting_Feats_No_Tax,"number of distinguishing features in concept (those in < 3 concepts in norms), excluding taxonomic features"
+Disting_Feats_%_No_Tax,"percentage of features in concept that are distinguishing features (those in < 3 concepts in norms), excluding taxonomic features"
+Mean_Distinct_No_Tax,"mean distinctiveness of the concept's features (1/number of concepts in which feature occurs), excluding taxonomics"
+Mean_CV_No_Tax,"mean cue validity of the concept's features, excluding taxonomics"
+Density_No_Tax,intercorrelational density of the concept
+Num_Corred_Pairs_No_Tax,"number of significantly correlated feature pairs in concept, excluding taxonomics"
+%_Corred_Pairs_No_Tax,"percentage of possible feature pairs in concept that are correlated, excluding taxonomics"
+Num_Func,number of functional features in concept
+Num_Vis_Mot,number of visual-motor features in concept
+Num_VisF&S,number of visual form and surface features in concept
+Num_Vis_Col,number of visual colour features in concept
+Num_Sound,number of sound features in concept
+Num_Taste,number of taste features in concept
+Num_Smell,number of smell features in concept
+Num_Tact,number of tactile features in concept
+Num_Ency,number of encyclopedic features in concept
+Num_Tax,number of taxonomic features in concept
