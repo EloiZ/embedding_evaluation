@@ -1,6 +1,22 @@
 #!/usr/bin/env python3
 import os
 
+def parse_csv(name, path):
+    dataset = {}
+    try:
+        with open(path, "r") as f:
+            data = f.read().splitlines()
+        for line in data[1:]:
+            s = line.split(",")
+            word1 = s[1].lower()
+            word2 = s[2].lower()
+            score = float(s[3])
+            dataset[(word1, word2)] = score
+    except Exception as e:
+        print("Error parsing {}: {}".format(name, e))
+        exit(1)
+    return dataset
+
 def parse_vis_sem_sim(path):
     semsim = {}
     vissim = {}
@@ -40,6 +56,7 @@ def parse_men(men_path, lemma=True):
 def parse_simlex(simlex_path):
     simlex = {}
     usf = {}
+    conq = [ {} for i in range(4) ] # 4 quartiles according to concreteness
     with open(simlex_path, "r") as f:
         data = f.read().splitlines()
 
@@ -53,7 +70,8 @@ def parse_simlex(simlex_path):
         simlex[(word1, word2)] = s999
         if has_usf:
             usf[(word1, word2)] = usf_score
-    return usf, simlex
+        conq[int(s[6]) - 1][(word1, word2)] = s999
+    return usf, simlex, conq[0], conq[1], conq[2], conq[3]
 
 def parse_wordsim353(wordsim353_path):
     ws353 = {}
@@ -97,7 +115,7 @@ def parse_mturk(mturk_path):
     mturk = {}
     with open(mturk_path, "r") as f:
         data = f.read().splitlines()
-    for line in data:
+    for line in data[1:]:
         s = line.split(",")
         word1 = s[0].lower()
         word2 = s[1].lower()
@@ -118,7 +136,7 @@ def process_benchmarks():
     rw_path = os.path.join(data_path, "rw/rw.txt")
     mturk771_path = os.path.join(data_path, "mturk-771/MTURK-771.csv")
 
-    usf, simlex = parse_simlex(simlex_path)
+    usf, simlex, simconq_q1, simconq_q2, simconq_q3, simconq_q4 = parse_simlex(simlex_path)
     ws353 = parse_wordsim353(wordsim353_path)
     men = parse_men(men_path_natural, lemma=False)
     vis_sim, sem_sim = parse_vis_sem_sim(vis_sem_sim_path)
@@ -127,14 +145,18 @@ def process_benchmarks():
     mturk771 = parse_mturk(mturk771_path)
 
     benchmarks = {"usf": usf,
-	            "ws353": ws353,
-	            "men":men,
-	            "vis_sim":vis_sim,
-	            "sem_sim":sem_sim,
-	            "simlex":simlex,
-                    "verb_143":verb,
-                    "rw":rw,
-                    "mturk_771":mturk771}
+	          "ws353": ws353,
+	          "men":men,
+	          "vis_sim":vis_sim,
+	          "sem_sim":sem_sim,
+	          "simlex":simlex,
+                  "simlex-q1": simconq_q1,
+                  "simlex-q2": simconq_q2,
+                  "simlex-q3": simconq_q3,
+                  "simlex-q4": simconq_q4,
+                  "mturk771": mturk771,
+                  "rw": rw
+    }
 
     return benchmarks
 

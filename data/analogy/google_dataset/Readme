@@ -1,0 +1,13 @@
+
+
+
+The GOOGLE dataset (Mikolov et al., 2013a) contains 19544 questions.  It
+covers 14 relation types, 7 of which are semantic in nature and 7 are
+morpho-syntactic (enumerated in Section 8). The dataset was created by
+manually constructing example word-pairs of each relation, and providing all
+the pairs of word-pairs (within each relation type) as analogy questions.
+
+code.google.com/p/word2vec/source/browse/trunk/questions-words.txt
+
+Tomas Mikolov, Kai Chen, Greg Corrado, and Jeffrey Dean. 2013a. Efficient
+estimation of word represen- tations in vector space.  CoRR, abs/1301.3781
