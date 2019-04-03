@@ -125,7 +125,7 @@ def parse_mturk(mturk_path):
 
 
 
-def process_benchmarks():
+def process_benchmarks(benchmark_subset=False):
     data_path = os.environ["EMBEDDING_EVALUATION_DATA_PATH"]
     simlex_path = os.path.join(data_path, "SimLex-999/SimLex-999.txt")
     wordsim353_path = os.path.join(data_path, "wordsim/combined.csv")
@@ -144,19 +144,30 @@ def process_benchmarks():
     rw = parse_rw(rw_path)
     mturk771 = parse_mturk(mturk771_path)
 
-    benchmarks = {"usf": usf,
-	          "ws353": ws353,
-	          "men":men,
-	          "vis_sim":vis_sim,
-	          "sem_sim":sem_sim,
-	          "simlex":simlex,
-                  "simlex-q1": simconq_q1,
-                  "simlex-q2": simconq_q2,
-                  "simlex-q3": simconq_q3,
-                  "simlex-q4": simconq_q4,
-                  "mturk771": mturk771,
-                  "rw": rw
-    }
+    if benchmark_subset:
+        benchmarks = {"usf": usf,
+                      "ws353": ws353,
+                      "men":men,
+                      "vis_sim":vis_sim,
+                      "sem_sim":sem_sim,
+                      "simlex":simlex,
+                      "mturk771": mturk771,
+                      "rw": rw
+        }
+    else:
+        benchmarks = {"usf": usf,
+                      "ws353": ws353,
+                      "men":men,
+                      "vis_sim":vis_sim,
+                      "sem_sim":sem_sim,
+                      "simlex":simlex,
+                      "simlex-q1": simconq_q1,
+                      "simlex-q2": simconq_q2,
+                      "simlex-q3": simconq_q3,
+                      "simlex-q4": simconq_q4,
+                      "mturk771": mturk771,
+                      "rw": rw
+        }
 
     return benchmarks
 

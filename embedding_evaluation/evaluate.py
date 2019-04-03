@@ -5,20 +5,26 @@ import json
 
 class Evaluation:
 
-    def __init__(self, vocab_path=None, entity_subset=None, vocab=None):
-        self.sim = EvaluationSimilarity(entity_subset=entity_subset)
-        self.conc = EvaluationConcreteness(entity_subset=None)
-        self.fn = None
+    def __init__(self, vocab_path=None, entity_subset=None, vocab=None, eval_conc=True, benchmark_subset=False):
+        self.sim = EvaluationSimilarity(entity_subset=entity_subset, benchmark_subset=benchmark_subset)
 
+        self.eval_conc = eval_conc
+        if self.eval_conc:
+            self.conc = EvaluationConcreteness(entity_subset=None)
+
+        self.fn = None
         if (vocab_path is not None) or (vocab is not None):
             self.fn = EvaluationFeatureNorm(entity_subset=entity_subset, vocab_path=vocab_path, vocab=vocab)
 
     def evaluate(self, my_embedding):
         results = {}
         results["similarity"] = self.sim.evaluate(my_embedding)
+
         if self.fn is not None:
             results["feature_norm"] = self.fn.evaluate(my_embedding)
-        results["concreteness"] = self.conc.evaluate(my_embedding)
+
+        if self.eval_conc:
+            results["concreteness"] = self.conc.evaluate(my_embedding)
         return results
 
     def evaluate_to_file(self, my_embedding, file_path=None):

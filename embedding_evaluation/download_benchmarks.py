@@ -21,10 +21,10 @@ def download_men():
     os.system("wget -P data/men/ %s" % men_lemma_url)
     os.system("wget -P data/men/ %s" % men_natural_url)
 
-def download_vis_sim_sim():
-    vis_sem_sim_url = "http://homepages.inf.ed.ac.uk/s1151656/xyzblabli/similarity_judgements.txt"
-    os.system("mkdir data/vis_sem_sim")
-    os.system("wget -P data/vis_sem_sim/ %s" % vis_sem_sim_url)
+#def download_vis_sim_sim():
+#    vis_sem_sim_url = "http://homepages.inf.ed.ac.uk/s1151656/xyzblabli/similarity_judgements.txt"
+#    os.system("mkdir data/vis_sem_sim")
+#    os.system("wget -P data/vis_sem_sim/ %s" % vis_sem_sim_url)
 
 def download_mcrae():
     mc_rae_url = "https://sites.google.com/site/kenmcraelab/norms-data/CONCS_FEATS_concstats_brm.xlsx"
@@ -36,5 +36,5 @@ if __name__ == "__main__":
     download_simlex()
     dowload_wordsim()
     download_men()
-    download_vis_sim_sim()
+    #download_vis_sim_sim()
     #download_mcrae()

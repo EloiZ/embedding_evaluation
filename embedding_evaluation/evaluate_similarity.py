@@ -66,8 +66,8 @@ def evaluate_one_benchmark(my_embedding, embedding_fallback, benchmark, entity_s
 
 class EvaluationSimilarity:
 
-    def __init__(self, entity_subset=None):
-        self.all_benchmarks = process_benchmarks()
+    def __init__(self, entity_subset=None, benchmark_subset=False):
+        self.all_benchmarks = process_benchmarks(benchmark_subset=benchmark_subset)
         self.entity_subset = entity_subset
 
     def words_in_benchmarks(self, bname=None):
