@@ -97,7 +97,7 @@ house
 ```
 Then you can load the embeddings with `embeddings = load_embedding_npy(npy_path="path/to/my/embeddings.npy", vocab_path="path/to/vocab.txt")`
 
-##Disclaimer
+## Disclaimer
 This is on-going work and any kind of feedback (bugs, code optimization, feature requests...) is more than welcome :) Do not hesitate to contribute and/or to open an issue.
 
 
