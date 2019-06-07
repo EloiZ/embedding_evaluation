@@ -25,6 +25,7 @@ def evaluate_one_benchmark(my_embedding, embedding_fallback, benchmark, entity_s
     """
     gold_list = []
     target_list = []
+    final_word_pair_list = []
     gold_list_ent_only = []
     target_list_ent_only = []
     count_used_pairs = 0
@@ -45,6 +46,7 @@ def evaluate_one_benchmark(my_embedding, embedding_fallback, benchmark, entity_s
         else:
             sim = cosine_similarity(v1, v2)
 
+        final_word_pair_list.append((word1, word2))
         gold_list.append(gold_score)
         target_list.append(sim)
 
@@ -61,7 +63,14 @@ def evaluate_one_benchmark(my_embedding, embedding_fallback, benchmark, entity_s
         sp_ent_only, _ = spearmanr(target_list_ent_only, gold_list_ent_only)
         result["entity_subset"] = sp_ent_only
 
-    return {"all_entities": sp_all, "entity_subset": sp_ent_only, 'total_pairs': len(benchmark), 'used_pairs' : count_used_pairs}
+    return {"all_entities": sp_all,
+            "entity_subset": sp_ent_only,
+            'total_pairs': len(benchmark),
+            'used_pairs' : count_used_pairs,
+            "gold_list": gold_list,
+            "target_list": target_list,
+            "final_word_pair_list": final_word_pair_list,
+            }
 
 
 class EvaluationSimilarity:

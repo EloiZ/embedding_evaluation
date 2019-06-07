@@ -17,7 +17,8 @@ def process_mcrae(vocab=None):
     with open(all_words_path, "r") as f:
         all_words = f.read().splitlines()
     if vocab is not None:
-        keep_word = [True if word in set(vocab) else False for word in all_words]
+        vocab_set = set(vocab)
+        keep_word = [word in vocab_set for word in all_words]
         all_words = [word for i, word in enumerate(all_words) if keep_word[i]] # filter out words that are not in vocab
     else:
         keep_word = [True for word in all_words]
