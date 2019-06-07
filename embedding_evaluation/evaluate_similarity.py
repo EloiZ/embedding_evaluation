@@ -67,11 +67,10 @@ def evaluate_one_benchmark(my_embedding, embedding_fallback, benchmark, entity_s
             "entity_subset": sp_ent_only,
             'total_pairs': len(benchmark),
             'used_pairs' : count_used_pairs,
-            "gold_list": gold_list,
-            "target_list": target_list,
+            "gold_list": list(map(str, gold_list)),
+            "target_list": list(map(str, target_list)),
             "final_word_pair_list": final_word_pair_list,
             }
-
 
 class EvaluationSimilarity:
 
