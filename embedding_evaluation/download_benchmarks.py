@@ -1,6 +1,12 @@
 #!/usr/bin/env python3
 import os
 
+def download_hyperlex():
+    hyperlex_url = 'http://people.ds.cam.ac.uk/iv250/paper/hyperlex/hyperlex-data.zip'
+    os.system("wget -O data/hyperlex.zip %s" % hyperlex_url)
+    os.system("unzip data/hyperlex.zip -d data/hyperlex")
+    os.system("rm data/hyperlex.zip")
+
 def download_simlex():
     simlex_url = "https://www.cl.cam.ac.uk/~fh295/SimLex-999.zip"
     os.system("wget -O data/simlex.zip %s" % simlex_url)
