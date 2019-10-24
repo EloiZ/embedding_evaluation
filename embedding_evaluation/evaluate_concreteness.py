@@ -3,7 +3,7 @@ import os
 
 import numpy as np
 from sklearn.svm import SVR
-from sklearn.model_selection import cross_val_score, KFold
+from sklearn.model_selection import KFold
 
 from embedding_evaluation.load_embedding import load_embedding_textfile
 
@@ -31,11 +31,11 @@ class EvaluationConcreteness:
         return vocab
 
     def evaluate_one_dataset(self, labels, features, vocab_list):
-        labels = np.array(labels)
         scores = []
         predicted_conc = []
         ground_truth_conc = []
         word_list = []
+        scores_per_word = []
 
         kf = KFold(n_splits=5, shuffle=True, random_state=1234)
         kf.get_n_splits()
@@ -48,16 +48,22 @@ class EvaluationConcreteness:
             words = vocab_list[test_index]
 
             self.clf = SVR(kernel="rbf", gamma="auto")
-            #score = cross_val_score(self.clf, features, labels, cv=5)#, scoring="f1")
             self.clf.fit(X_train, y_train)
             score = self.clf.score(X_test, y_test)
             scores.append(score)
 
+            # Per word score
+            y_pred = self.clf.predict(X_test)
+            square_res = 0.5 * (y_test - y_pred) ** 2
+            #sum_of_squares = (y_test - y_pred.mean()) ** 2
+
             predicted_conc.extend(list(self.clf.predict(X_test)))
+            scores_per_word.extend(list(square_res))
             ground_truth_conc.extend(list(y_test))
             word_list.extend(words)
 
-        return scores, predicted_conc, ground_truth_conc, word_list
+        return scores, predicted_conc, ground_truth_conc, word_list, scores_per_word
+
 
     def evaluate(self, my_embedding):
         labels = []
@@ -74,16 +80,17 @@ class EvaluationConcreteness:
         self.features = np.array(features)
         self.labels = np.array(labels)
         self.vocab_list = np.array(vocab_list)
-        scores, predicted_conc, ground_truth_conc, word_list = self.evaluate_one_dataset(labels, self.features, self.vocab_list)
+        scores, predicted_conc, ground_truth_conc, word_list, scores_per_word = self.evaluate_one_dataset(self.labels, self.features, self.vocab_list)
         mean = np.mean(scores)
         std = np.std(scores)
         results = {"mean": mean,
                 "std": std,
-                "total_words" : len(self.concreteness),
-                "words_with_embedding" : len(self.vocab_list),
-                "ground_truth":  list(map(str, ground_truth_conc)),
-                "predicted_conc":  list(map(str, predicted_conc)),
-                "word_list":  word_list,
+                "total_words": len(self.concreteness),
+                "words_with_embedding": len(self.vocab_list),
+                "ground_truth": list(map(str, ground_truth_conc)),
+                "predicted_conc": list(map(str, predicted_conc)),
+                "word_list": word_list,
+                "score_per_word": scores_per_word,
                 }
 
         return results
