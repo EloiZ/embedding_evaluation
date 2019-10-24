@@ -22,6 +22,9 @@ echo -e  "\n- Concreteness\n" >> ${oFile}
 python3 eval_concreteness.py ${embs} >> ${oFile}
 echo -e  "\n- Feature Norms\n" >> ${oFile}
 python3 eval_fnorms.py ${embs} >> ${oFile}
+echo -e  "\n- Lexical entialment\n" >> ${oFile}
+python3 eval_lexical_entailment.py ${embs} >> ${oFile}
+exit 0
 echo -e  "\n- Analogy (fallback)\n" >> ${oFile}
 echo -e  "topk 10\n" >> ${oFile}
 python3 eval_analogy.py --topk 10 ${embs} >> ${oFile}
